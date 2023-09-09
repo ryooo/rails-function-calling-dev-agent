@@ -1,14 +1,25 @@
 namespace :llm do
-  task exec: :environment do |task, args|
-    prompt = "藤井聡太の近況ってどんな感じ？"
-    azure_open_ai = AzureOpenAi::Client.new
-    io, _, _ = azure_open_ai.chat_with_function_calling_loop(
-      messages: [{ role: "user", content: prompt }],
-      functions: [
-        AzureOpenAi::Functions::GoogleSearch.new,
-        AzureOpenAi::Functions::OpenUrl.new(prompt),
-      ],
-    )
-    puts(io.rewind && io.read)
+  task dev: :environment do
+    prompt = ENV['PROMPT']
+    if prompt.blank?
+      raise 'prompt is required' if ENV['ISSUE_TITLE'].blank?
+      prompt = "title: #{ENV['ISSUE_TITLE']}\ndescription: #{ENV['ISSUE_DESCRIPTION']}"
+    end
+    puts("Engineer leader: #{prompt}".light_red)
+
+    programmer = AzureOpenAi::Agents::Programmer.new(prompt, :cyan)
+    reviewer = AzureOpenAi::Agents::Reviewer.new(prompt, :green)
+    reviewer_comment = nil
+    i = 0
+    while (i += 1) < 20
+      programmer_comment = programmer.work(reviewer_comment:)
+      reviewer_comment = reviewer.work(programmer_comment:)
+
+      break if reviewer.lgtm?
+    end
+
+    if reviewer.lgtm?
+      programmer.make_pr!
+    end
   end
 end

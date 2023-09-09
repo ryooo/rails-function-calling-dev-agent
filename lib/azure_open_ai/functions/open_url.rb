@@ -25,12 +25,10 @@ module AzureOpenAi
         @definition
       end
 
-      def execute_and_generate_message(response_message)
-        args = JSON.load(response_message['function_call']['arguments']) || {}
-        puts("#{self.class} - #{args}")
+      def execute_and_generate_message(args)
 
         charset = nil
-        html = URI.open(Addressable::URI.parse(args['url']).display_uri.to_s) do |f|
+        html = URI.open(Addressable::URI.parse(args[:url]).display_uri.to_s) do |f|
           charset = f.charset
           f.read
         end
@@ -63,13 +61,9 @@ module AzureOpenAi
         end
 
         {
-          role: "function",
-          name: self.function_name,
-          content: JSON.dump({
-                               url: args['url'],
-                               title: page.title,
-                               page_content: page_contents,
-                             }),
+          url: args[:url],
+          title: page.title,
+          page_content: page_contents,
         }
       end
     end
