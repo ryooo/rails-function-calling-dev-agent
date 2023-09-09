@@ -34,7 +34,7 @@ class LlmMessageContainer
     end
   end
 
-  def build(token_limit: 28_000)
+  def to_capped_messages(token_limit: 28_000)
     if true || self.total_token > token_limit
       # システムメッセージは消さない
       system_metas, not_system_metas = @metas.partition { |message| message[:role] == :system }

@@ -29,23 +29,17 @@ module AzureOpenAi
         @definition
       end
 
-      def execute_and_generate_message(response_message)
-        args = JSON.load(response_message['function_call']['arguments']) || {}
-        puts("#{self.class} - #{args}")
-        search_results = self.class.search_client.search(args['search_word'], gl: 'jp')
-        search_results_hash = []
-        search_results.items.each do |item|
-          search_results_hash << {
+      def execute_and_generate_message(args)
+        search_results = self.class.search_client.search(args[:search_word], gl: 'jp')
+        ret = search_results.items.map do |item|
+          {
             title: item.title,
             url: item.formatted_url,
             snippet: item.html_snippet,
           }
         end
-        {
-          role: "function",
-          name: self.function_name,
-          content: JSON.dump(search_results_hash),
-        }
+
+        ret
       end
     end
   end

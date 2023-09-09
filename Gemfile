@@ -41,9 +41,9 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 
-group :development do
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails'
 end
 
 
@@ -51,5 +51,7 @@ gem 'ruby-openai'
 gem 'html2markdown'
 gem 'addressable'
 gem 'baran'
-gem 'tiktoken'
+gem 'tiktoken_ruby'
 gem 'google-apis-customsearch_v1'
+gem 'colorize'
+gem 'pry'

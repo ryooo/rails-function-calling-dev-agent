@@ -1,0 +1,41 @@
+name: llm dev
+
+on:
+  issues:
+    types:
+      - labeled
+
+jobs:
+  work:
+    if: github.event.label.name == 'llm-dev'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      statuses: write
+      issues: write
+      pull-requests: write
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.1
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+    - name: Run llm dev
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+        GOOGLE_CUSTOM_SEARCH_CSE_ID: ${{secrets.GOOGLE_CUSTOM_SEARCH_CSE_ID}}
+        AZURE_OPENAI_API_KEY: ${{secrets.AZURE_OPENAI_API_KEY}}
+        GOOGLE_SA_PRIVATE_KEY: ${{secrets.GOOGLE_SA_PRIVATE_KEY}}
+        GOOGLE_SA_CLIENT_EMAIL: ${{secrets.GOOGLE_SA_CLIENT_EMAIL}}
+        ISSUE_TITLE: ${{ github.event.issue.title }}
+        ISSUE_DESCRIPTION: ${{ github.event.issue.description }}
+      run: |
+        git config --global user.email "github-actions@example.com"
+        git config --global user.name "github-actions[bot]"
+        bundle exec rails llm:dev
