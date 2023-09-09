@@ -68,8 +68,8 @@ module AzureOpenAi
           color: @color,
           actor_name: self.actor_name,
         )
-        exec_sh('git checkout -b #{generate_pr_info_function.branch_name}')
-        exec_sh('git add .')
+        exec_sh("git checkout -b #{generate_pr_info_function.branch_name}")
+        exec_sh("git add .")
         exec_sh("git commit -m '#{generate_pr_info_function.title}'")
         exec_sh("git push --set-upstream origin #{generate_pr_info_function.branch_name}")
         exec_sh("gh pr create --base main --head #{generate_pr_info_function.branch_name} " + \

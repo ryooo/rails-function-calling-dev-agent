@@ -1,0 +1,4 @@
+example_id                                                | status | run_time        |
+--------------------------------------------------------- | ------ | --------------- |
+./spec/azure_open_ai/functions/read_file_spec.rb[1:1:1:1] | passed | 0.00672 seconds |
+./spec/azure_open_ai/functions/read_file_spec.rb[1:1:2:1] | passed | 0.0002 seconds  |
