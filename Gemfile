@@ -46,3 +46,10 @@ group :development do
   # gem "spring"
 end
 
+
+gem 'ruby-openai'
+gem 'html2markdown'
+gem 'addressable'
+gem 'baran'
+gem 'tiktoken'
+gem 'google-apis-customsearch_v1'

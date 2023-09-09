@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# How to use
 
-Things you may want to cover:
+```ruby
+prompt = "藤井聡太の近況ってどんな感じ？"
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+azure_open_ai = AzureOpenAi::Client.new
+io, _, _ = azure_open_ai.chat_with_function_calling_loop(
+  messages: [{ role: "user", content: prompt }],
+  functions: [
+    AzureOpenAi::Functions::GoogleSearch.new,
+    AzureOpenAi::Functions::OpenUrl.new(prompt),
+  ],
+)
+puts(io.rewind && io.read)
+```
