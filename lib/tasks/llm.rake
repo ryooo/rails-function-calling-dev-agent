@@ -11,7 +11,7 @@ namespace :llm do
     reviewer = AzureOpenAi::Agents::Reviewer.new(prompt, :green)
     reviewer_comment = nil
     i = 0
-    while (i += 1) < 20
+    while (i += 1) < 10
       programmer_comment = programmer.work(reviewer_comment:)
       reviewer_comment = reviewer.work(programmer_comment:)
 

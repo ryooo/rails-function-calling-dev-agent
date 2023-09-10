@@ -46,3 +46,17 @@ io, _, _ = azure_open_ai.chat_with_function_calling_loop(
   actor_name: "Programmer",
 )
 ```
+
+# How to develop on local
+```bash
+bundle install
+PROMPT=AzureOpenAi::Functions::ReadFileのrspecを追加してください bundle exec rails llm:dev
+```
+
+# required env
+- must
+  - AZURE_OPENAI_API_KEY
+- for google custom search
+  - GOOGLE_CUSTOM_SEARCH_CSE_ID
+  - GOOGLE_SA_PRIVATE_KEY
+  - GOOGLE_SA_CLIENT_EMAIL

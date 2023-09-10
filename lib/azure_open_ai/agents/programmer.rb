@@ -70,12 +70,13 @@ module AzureOpenAi
           color: @color,
           actor_name: self.actor_name,
         )
+        issue_number = ENV['ISSUE_NUMBER'].blank? ? '' : " ##{ENV['ISSUE_NUMBER']}"
         exec_sh("git checkout -b #{generate_pr_params_function.branch_name}")
         exec_sh("git add .")
         exec_sh("git commit -m '#{generate_pr_params_function.title}'")
         exec_sh("git push --set-upstream origin #{generate_pr_params_function.branch_name}")
         exec_sh("gh pr create --base main --head #{generate_pr_params_function.branch_name} " + \
-          "--title '#{generate_pr_params_function.title}' --body '#{generate_pr_params_function.description}'")
+          "--title '#{generate_pr_params_function.title}#{issue_number}' --body '#{generate_pr_params_function.description}'")
       end
     end
   end
