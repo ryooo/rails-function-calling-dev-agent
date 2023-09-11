@@ -47,31 +47,30 @@ module AzureOpenAi
           messages: message_container.to_capped_messages,
           functions: args[:functions].map { |f| f.class.definition },
         }))
-
-        # Function calling
-        if ret.dig("choices", 0, "finish_reason") == 'function_call'
-          message = ret.dig("choices", 0, "message")
-          function = args[:functions].detect { |f| f.function_name == message['function_call']['name'] }
-          message_container.add_raw_message(message.merge({ content: nil }))
-
-          function_args = (JSON.parse(message.dig('function_call','arguments')) || {}).with_indifferent_access
-          puts("#{actor_name}: #{function.class.name.send(color)}")
-          puts(function_args)
-          function_result = function.execute_and_generate_message(function_args)
-          # puts(function_result) if Rails.env.development?
-          message_container.add_raw_message({
-            role: "function",
-            name: function.function_name,
-            content: JSON.dump(function_result),
-          })
-
-          function_histories << {
-            function_calling: message,
-            result: function_result,
-          }
-        else
+        if ret.dig("choices", 0, "finish_reason") != 'function_call'
           break
         end
+
+        # Function calling
+        message = ret.dig("choices", 0, "message")
+        function = args[:functions].detect { |f| f.function_name == message['function_call']['name'] }
+        message_container.add_raw_message(message.merge({ content: nil }))
+
+        function_args = (JSON.parse(message.dig('function_call','arguments')) || {}).with_indifferent_access
+        puts("#{actor_name}: #{function.class.name}".send(color))
+        puts(function_args)
+        function_result = function.execute_and_generate_message(function_args)
+        # puts(function_result) if Rails.env.development?
+        message_container.add_raw_message({
+          role: "function",
+          name: function.function_name,
+          content: JSON.dump(function_result),
+        })
+
+        function_histories << {
+          function_calling: message,
+          result: function_result,
+        }
       end
 
       # メッセージ表示

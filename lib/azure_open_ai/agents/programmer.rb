@@ -40,7 +40,7 @@ module AzureOpenAi
             AzureOpenAi::Functions::ModifyTextOfFile.new,
             AzureOpenAi::Functions::MakeNewFile.new,
 
-            AzureOpenAi::Functions::ExecRailsRunner.new,
+            AzureOpenAi::Functions::ExecRspecTest.new,
             AzureOpenAi::Functions::ExecShellCommand.new,
 
             AzureOpenAi::Functions::GoogleSearch.new,

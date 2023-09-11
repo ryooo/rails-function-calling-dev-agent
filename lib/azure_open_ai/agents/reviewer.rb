@@ -43,7 +43,7 @@ module AzureOpenAi
             AzureOpenAi::Functions::GetFilesList.new,
             AzureOpenAi::Functions::ReadFile.new,
 
-            AzureOpenAi::Functions::ExecRailsRunner.new,
+            AzureOpenAi::Functions::ExecRspecTest.new,
             AzureOpenAi::Functions::ExecShellCommand.new,
 
             AzureOpenAi::Functions::GoogleSearch.new,

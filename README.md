@@ -26,18 +26,19 @@ end
 ```
 
 # How to set function calling on chat parameter
+
 ```ruby
 prompt = "AzureOpenAi::Functions::ReadFileのrspecを追加してください。"
 azure_open_ai = AzureOpenAi::Client.new
 io, _, _ = azure_open_ai.chat_with_function_calling_loop(
-  messages: [{role: :user, content: prompt}],
+  messages: [{ role: :user, content: prompt }],
   functions: [
     AzureOpenAi::Functions::GetFilesList.new,
     AzureOpenAi::Functions::ReadFile.new,
     AzureOpenAi::Functions::AppendTextToFile.new,
     AzureOpenAi::Functions::ModifyTextOfFile.new,
     AzureOpenAi::Functions::MakeNewFile.new,
-    AzureOpenAi::Functions::ExecRailsRunner.new,
+    AzureOpenAi::Functions::ExecRspecTest.new,
     AzureOpenAi::Functions::ExecShellCommand.new,
     AzureOpenAi::Functions::GoogleSearch.new,
     AzureOpenAi::Functions::OpenUrl.new(prompt),

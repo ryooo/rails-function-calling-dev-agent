@@ -35,27 +35,25 @@ class LlmMessageContainer
   end
 
   def to_capped_messages(token_limit: 28_000)
-    if true || self.total_token > token_limit
-      # システムメッセージは消さない
-      system_metas, not_system_metas = @metas.partition { |message| message[:role] == :system }
-      current_token = system_metas.map { |meta| meta[:token] }.sum
-      filtered_indexes = system_metas.map { |meta| meta[:index] }
+    return @messages if self.total_token <= token_limit
 
-      # 新しいメッセージを優先的に残す
-      filtered_metas = []
-      not_system_metas.reverse.each do |meta|
-        break if token_limit < current_token + meta[:token]
+    # システムメッセージは消さない
+    system_metas, not_system_metas = @metas.partition { |message| message[:role] == :system }
+    current_token = system_metas.map { |meta| meta[:token] }.sum
+    filtered_indexes = system_metas.map { |meta| meta[:index] }
 
-        current_token += meta[:token]
-        filtered_indexes << meta[:index]
-      end
+    # 新しいメッセージを優先的に残す
+    filtered_metas = []
+    not_system_metas.reverse.each do |meta|
+      break if token_limit < current_token + meta[:token]
 
-      # システムメッセージが挟み込まれている場合も、並び順を維持すること
-      system_and_filtered_message = @messages.select.with_index { |message, i| filtered_indexes.include?(i) }
-      system_and_filtered_message
-    else
-      @messages
+      current_token += meta[:token]
+      filtered_indexes << meta[:index]
     end
+
+    # システムメッセージが挟み込まれている場合も、並び順を維持すること
+    system_and_filtered_message = @messages.select.with_index { |message, i| filtered_indexes.include?(i) }
+    system_and_filtered_message
   end
 
   def add_default_system_message!
