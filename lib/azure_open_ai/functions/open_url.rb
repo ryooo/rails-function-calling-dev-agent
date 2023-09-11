@@ -1,25 +1,25 @@
 module AzureOpenAi
   module Functions
     class OpenUrl < Base
-      def initialize(prompt)
-        @prompt = prompt
-      end
-
       def self.definition
         return @definition if @definition.present?
 
         @definition = {
           name: self.function_name,
-          description: "Get html contents on the page.",
+          description: "HTMLの内容を取得します。".to_en,
           parameters: {
             type: :object,
             properties: {
               url: {
                 type: :string,
-                description: "The page url.",
+                description: "HTMLを取得するURLを指定します。".to_en,
+              },
+              what_i_want_to_know: {
+                type: :string,
+                description: "具体的に知りたい内容について指定します。".to_en,
               },
             },
-            required: [:url],
+            required: [:url, :what_i_want_to_know],
           },
         }
         @definition
@@ -46,8 +46,9 @@ module AzureOpenAi
               messages: [
                 {
                   role: "system",
-                  content: "Extract useful information from the message given by the user to the prompt \"#{@prompt}\"." + \
-                             "User is japanese, so keep information is japanese.",
+                  content: ("ユーザーから送られるのはあるウェブページの内容です。" + \
+                    "この中からユーザーが知りたい内容と照らして有益な情報を抽出してください。" + \
+                    "ユーザーが知りたい内容は以下です。\n").to_en + @purpose.wrap_as_markdown,
                 },
                 {
                   role: "user",

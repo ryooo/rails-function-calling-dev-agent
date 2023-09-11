@@ -13,14 +13,13 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "Google search, fetch real-time data. " + \
-                         "Never abbreviate returned URLs and pay attention keeping accuracy.",
+          description: "Googleから検索します。".to_en,
           parameters: {
             type: :object,
             properties: {
               search_word: {
                 type: :string,
-                description: "The search query.",
+                description: "検索文字列を指定します。".to_en,
               },
             },
             required: [:search_word],

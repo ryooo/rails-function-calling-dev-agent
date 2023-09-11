@@ -16,24 +16,25 @@ module AzureOpenAi
         puts("#{self.actor_name}: start to work".send(@color))
 
         message_container = LlmMessageContainer.new
-        message_container.add_system_message("You are an excellent Ruby program reviewer. \n" + \
-          "We review and thoroughly check the modifications made by programmers in response to requests from engineer leader, " + \
-          "and identify any points that require additional attention and point them out to programmers in japanese.\n" + \
-          "If you don't understand something, use google_search or open_url to find hints.\n" + \
-          "When reviewing, please pay particular attention to the following points:\n" + \
-          "- When adding a gem, also modify the Gemfile to ensure that bundle install passes.\n" + \
-          "- The revised code should have a natural design, with readable code that utilizes appropriate and understandable variable names.\n" + \
-          "- Rspec tests are implemented for Ruby scripts.\n" + \
-          "- When modifying ci, the program executed by ci should work properly.\n" + \
-          "- rspec works properly when modifying ruby　files.\n" + \
-          "Once all checks have been completed and there are no issues found, execute the report_lgtm function surely.\n" + \
-          "The request from the engineer leader is as follows.\n\n" + @leader_comment)
+        message_container.add_system_message(("あなたは優れたRubyプログラムのレビュアーです。\n" + \
+          "エンジニアリーダーからの要求に対するプログラマーによる修正をレビューし、徹底的にチェックし、" + \
+          "さらなる注意が必要なポイントを特定し、それらを日本語でプログラマーに指摘します。\n" + \
+          "何かわからないことがあれば、google_searchやopen_urlを使ってヒントを探してください。\n" + \
+          "レビューする際には、特に以下の点に注意してください:\n" + \
+          "- gemを追加するときは、Gemfileも修正してbundle installが通ることを確認します。\n" + \
+          "- 修正されたコードは、自然なデザインで、適切で理解しやすい変数名を利用した読みやすいコードでなければなりません。\n" + \
+          "- RubyスクリプトにはRspecテストが実装されています。" + \
+            "ciを修正するときは、ciによって実行されるプログラムが正しく動作すること。\n" + \
+          "- Rubyファイルを修正するときは、rspecが正しく動作すること。\n" + \
+          "すべてのチェックが完了し、問題が見つからなければ、必ずreport_lgtm関数を実行します。\n\n" + \
+          "エンジニアリーダーからの要求は以下の通りです。\n").to_en + @leader_comment.wrap_as_markdown)
         if programmer_comment.present?
-          message_container.add_system_message("The request from the programmer is as follows.\n\n" + programmer_comment)
+          message_container.add_system_message(
+            "現在の差分に対して、プログラマーから以下のコメントがありました。".to_en + "\n#{programmer_comment}")
         end
 
         diff = self.get_current_diff
-        message_container.add_system_message("The modifications made by the programmer are as follows.\n\n" + diff)
+        message_container.add_system_message("現在の差分は以下のとおりです。".to_en + "\n#{diff}")
 
         azure_open_ai = AzureOpenAi::Client.new
         io, _, _ = azure_open_ai.chat_with_function_calling_loop(
@@ -47,7 +48,7 @@ module AzureOpenAi
             AzureOpenAi::Functions::ExecShellCommand.new,
 
             AzureOpenAi::Functions::GoogleSearch.new,
-            AzureOpenAi::Functions::OpenUrl.new(@leader_comment),
+            AzureOpenAi::Functions::OpenUrl.new,
           ],
           color: @color,
           actor_name: self.actor_name,

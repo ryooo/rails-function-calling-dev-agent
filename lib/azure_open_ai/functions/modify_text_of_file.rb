@@ -6,26 +6,25 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "Delete text of file.",
+          description: "ファイルの文字列を修正して、修正後のファイル内容を返します。".to_en,
           parameters: {
             type: :object,
             properties: {
               filepath: {
                 type: :string,
-                description: "Specify the path of the file to append." + \
-                  "If the directory does not exist, it will be created automatically.",
+                description: "ファイルパスを指定します。".to_en,
               },
               start_line_number: {
                 type: :number,
-                description: "Starting line number(starting from 1) of range to delete. line number must > 0.",
+                description: "上書きする範囲の先頭の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。".to_en,
               },
               end_line_number: {
                 type: :number,
-                description: "End line number(starting from 1) of the range to delete. line number must > 0.",
+                description: "上書きする範囲の最終の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。".to_en,
               },
               new_text: {
                 type: :string,
-                description: "Specify the content to overwrite.",
+                description: "上書き後の文字列を指定します。".to_en,
               },
             },
             required: [:filepath, :start_line_number, :end_line_number, :new_text],

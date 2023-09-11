@@ -14,7 +14,7 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "Record LGTM for the diff.",
+          description: "LGTMを記録します。".to_en,
           parameters: {
             type: :object,
             properties: {},

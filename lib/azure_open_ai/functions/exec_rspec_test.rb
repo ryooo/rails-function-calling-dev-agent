@@ -6,14 +6,14 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "Execute rspec test for specified spec file prefix.",
+          description: "rspecのテストを実行します。".to_en,
           parameters: {
             type: :object,
             properties: {
               file_or_dir_path: {
                 type: :string,
-                description: "Specify the file path of the spec file to be executed. " + \
-                  "If you specify a directory path, all tests in the directory will be executed.",
+                description: ("specファイルのファイルパスを指定します。" + \
+                  "ディレクトリパスが指定された場合は、ディレクトリ内のすべてのspecファイルを実行します。").to_en,
               },
             },
             required: [:file_or_dir_path],

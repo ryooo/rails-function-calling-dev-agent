@@ -6,22 +6,21 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "Append text to file.",
+          description: "ファイルに文字列を挿入します。".to_en,
           parameters: {
             type: :object,
             properties: {
               filepath: {
                 type: :string,
-                description: "Specify the path of the file to append." + \
-                  "If the directory does not exist, it will be created automatically.",
+                description: "ファイルパスを指定します。".to_en,
               },
               line_number: {
                 type: :number,
-                description: "Specify the line number(starting from 1) to append. line number must > 0.",
+                description: "挿入する行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。".to_en,
               },
               append_text: {
                 type: :string,
-                description: "Specify the content to be added.",
+                description: "挿入する文字列を指定します。".to_en,
               },
             },
             required: [:filepath, :line_number, :append_text],
