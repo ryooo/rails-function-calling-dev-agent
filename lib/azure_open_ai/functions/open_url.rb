@@ -48,7 +48,7 @@ module AzureOpenAi
                   role: "system",
                   content: ("ユーザーから送られるのはあるウェブページの内容です。" + \
                     "この中からユーザーが知りたい内容と照らして有益な情報を抽出してください。" + \
-                    "ユーザーが知りたい内容は以下です。\n").to_en + @purpose.wrap_as_markdown,
+                    "ユーザーが知りたい内容は以下です。").to_en + "\n#{@purpose.wrap_as_markdown}",
                 },
                 {
                   role: "user",

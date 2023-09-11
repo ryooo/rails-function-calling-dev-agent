@@ -17,7 +17,7 @@ module AzureOpenAi
           "何かわからないことがあれば、google_searchやopen_urlを使ってヒントを探してください。\n" + \
           "あなたは唯一のプログラマーです。問題がある間はレビュアーに問題をなげず、問題を解決してからレビュアーに返答してください。\n" + \
           "修正が完了したら、日本語でレビュアーにあなたの懸念を伝えてください。\n" + \
-          "エンジニアリーダーからの要求は以下の通りです。\n").to_en + @leader_comment.wrap_as_markdown)
+          "エンジニアリーダーからの要求は以下の通りです。").to_en + "\n#{@leader_comment.wrap_as_markdown}")
         if reviewer_comment.present?
           message_container.add_system_message(
             "現在の差分に対して、レビュワーから以下のコメントがありました。".to_en + "\n#{reviewer_comment}")

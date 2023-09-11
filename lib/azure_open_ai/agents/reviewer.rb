@@ -27,7 +27,7 @@ module AzureOpenAi
             "ciを修正するときは、ciによって実行されるプログラムが正しく動作すること。\n" + \
           "- Rubyファイルを修正するときは、rspecが正しく動作すること。\n" + \
           "すべてのチェックが完了し、問題が見つからなければ、必ずreport_lgtm関数を実行します。\n\n" + \
-          "エンジニアリーダーからの要求は以下の通りです。\n").to_en + @leader_comment.wrap_as_markdown)
+          "エンジニアリーダーからの要求は以下の通りです。").to_en + "\n#{@leader_comment.wrap_as_markdown}")
         if programmer_comment.present?
           message_container.add_system_message(
             "現在の差分に対して、プログラマーから以下のコメントがありました。".to_en + "\n#{programmer_comment}")
