@@ -6,25 +6,25 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "ファイルの文字列を修正して、修正後のファイル内容を返します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               filepath: {
                 type: :string,
-                description: "ファイルパスを指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.filepath"),
               },
               start_line_number: {
                 type: :number,
-                description: "上書きする範囲の先頭の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.start_line_number"),
               },
               end_line_number: {
                 type: :number,
-                description: "上書きする範囲の最終の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.end_line_number"),
               },
               new_text: {
                 type: :string,
-                description: "上書き後の文字列を指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.new_text"),
               },
             },
             required: [:filepath, :start_line_number, :end_line_number, :new_text],

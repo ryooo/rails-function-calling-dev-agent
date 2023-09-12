@@ -6,13 +6,13 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "ファイルの内容を取得します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               filepath: {
                 type: :string,
-                description: "ファイルパスを指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.filepath"),
               },
             },
             required: [:filepath],

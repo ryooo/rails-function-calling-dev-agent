@@ -68,7 +68,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    ast (2.4.2)
     baran (0.1.8)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -149,9 +148,6 @@ GEM
     nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
     os (1.1.4)
-    parser (3.2.2.3)
-      ast (~> 2.4.1)
-      racc
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -259,7 +255,7 @@ DEPENDENCIES
   debug
   google-apis-customsearch_v1
   html2markdown
-  parser
+  i18n
   pry
   puma (~> 5.0)
   rails (~> 7.0.7, >= 7.0.7.2)

@@ -8,21 +8,21 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "Pull requestを作るためのパラメータを生成します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               title: {
                 type: :string,
-                description: "Pull requestのタイトルを指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.title"),
               },
               description: {
                 type: :number,
-                description: "Pull requestの説明文を指定します。diffの詳細を日本語で説明して指定してください。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.description"),
               },
               branch_name: {
                 type: :string,
-                description: "Pull requestを作成する時のブランチ名を指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.branch_name"),
               },
             },
             required: [:title, :description, :branch_name],

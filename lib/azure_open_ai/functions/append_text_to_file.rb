@@ -6,21 +6,21 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "ファイルに文字列を挿入します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               filepath: {
                 type: :string,
-                description: "ファイルパスを指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.filepath"),
               },
               line_number: {
                 type: :number,
-                description: "挿入する行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.line_number"),
               },
               append_text: {
                 type: :string,
-                description: "挿入する文字列を指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.append_text"),
               },
             },
             required: [:filepath, :line_number, :append_text],

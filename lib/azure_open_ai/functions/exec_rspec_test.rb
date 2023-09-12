@@ -6,14 +6,13 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "rspecのテストを実行します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               file_or_dir_path: {
                 type: :string,
-                description: ("specファイルのファイルパスを指定します。" + \
-                  "ディレクトリパスが指定された場合は、ディレクトリ内のすべてのspecファイルを実行します。").to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.file_or_dir_path"),
               },
             },
             required: [:file_or_dir_path],

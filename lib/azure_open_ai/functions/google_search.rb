@@ -13,13 +13,13 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "Googleから検索します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               search_word: {
                 type: :string,
-                description: "検索文字列を指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.search_word"),
               },
             },
             required: [:search_word],

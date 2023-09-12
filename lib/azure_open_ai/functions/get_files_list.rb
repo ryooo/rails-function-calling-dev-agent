@@ -6,7 +6,7 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "リポジトリのファイルリストを取得します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {},

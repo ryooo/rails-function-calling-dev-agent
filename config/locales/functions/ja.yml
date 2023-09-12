@@ -1,0 +1,66 @@
+ja:
+  functions:
+    append_text_to_file:
+      description: ファイルに文字列を挿入します。
+      parameters:
+        filepath: ファイルパスを指定します。
+        line_number: 挿入する行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。
+        append_text: 挿入する文字列を指定します。
+
+    exec_rspec_test:
+      description: rspecのテストを実行します。
+      parameters:
+        file_or_dir_path: |-
+          specファイルのファイルパスを指定します。
+          ディレクトリパスが指定された場合は、ディレクトリ内のすべてのspecファイルを実行します。
+
+    generate_pull_request_params:
+      description: Pull requestを作るためのパラメータを生成します。
+      parameters:
+        title: Pull requestのタイトルを指定します。
+        description: Pull requestの説明文を指定します。diffの詳細を日本語で説明して指定してください。
+        branch_name: Pull requestを作成する時のブランチ名を指定します。
+
+    get_files_list:
+      description: リポジトリのファイルリストを取得します。
+
+    google_search:
+      description: Googleから検索します。
+      parameters:
+        search_word: 検索文字列を指定します。
+
+    make_new_file:
+      description: 新しいファイルを作成します。
+      parameters:
+        filepath: ファイルパスを指定します。ディレクトリが存在しない場合は、ディレクトリを作成します。
+        file_contents: ファイルの内容を指定します。
+
+    modify_text_of_file:
+      description: ファイルの文字列を修正して、修正後のファイル内容を返します。
+      parameters:
+        filepath: ファイルパスを指定します。
+        start_line_number: 上書きする範囲の先頭の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。
+        end_line_number: 上書きする範囲の最終の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。
+        new_text: 上書き後の文字列を指定します。
+
+    open_url:
+      description: HTMLの内容を取得します。
+      parameters:
+        url: HTMLを取得するURLを指定します。
+        what_i_want_to_know: 具体的に知りたい内容について指定します。
+      summary_system:
+        ユーザーから送られるのはあるウェブページの内容です。
+        この中からユーザーが知りたい内容と照らして有益な情報を抽出してください。
+        ユーザーが知りたい内容は以下です。
+        ```
+        %{purpose}
+        ```
+
+    read_file:
+      description: ファイルの内容を取得します。
+      parameters:
+        filepath: ファイルパスを指定します。
+
+    record_lgtm:
+      description: タスクをLGTMとして記録します。
+

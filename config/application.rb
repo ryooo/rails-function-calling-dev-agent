@@ -30,5 +30,7 @@ module RailsGpt
     loader.push_dir(config.root.join("./lib"))
     loader.setup
 
+    config.i18n.default_locale = :en
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
   end
 end

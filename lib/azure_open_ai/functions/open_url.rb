@@ -6,17 +6,17 @@ module AzureOpenAi
 
         @definition = {
           name: self.function_name,
-          description: "HTMLの内容を取得します。".to_en,
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               url: {
                 type: :string,
-                description: "HTMLを取得するURLを指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.url"),
               },
               what_i_want_to_know: {
                 type: :string,
-                description: "具体的に知りたい内容について指定します。".to_en,
+                description: I18n.t("functions.#{self.function_name}.parameters.what_i_want_to_know"),
               },
             },
             required: [:url, :what_i_want_to_know],
@@ -46,9 +46,7 @@ module AzureOpenAi
               messages: [
                 {
                   role: "system",
-                  content: ("ユーザーから送られるのはあるウェブページの内容です。" + \
-                    "この中からユーザーが知りたい内容と照らして有益な情報を抽出してください。" + \
-                    "ユーザーが知りたい内容は以下です。").to_en + "\n#{@purpose.wrap_as_markdown}",
+                  content: I18n.t("functions.#{self.function_name}.summary_system", purpose: @purpose),
                 },
                 {
                   role: "user",
