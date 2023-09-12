@@ -50,7 +50,10 @@ en:
         what_i_want_to_know: Specify the details you want to know.
       summary_system: The content sent from the user is from a certain webpage. Please
         extract useful information from this in light of what the user wants to know.
-        The content the user wants to know is as follows. ``` %{purpose} ```
+        The content the user wants to know is as follows. 
+        ```
+        %{purpose}
+        ```
     read_file:
       description: Retrieve the contents of the file.
       parameters:
