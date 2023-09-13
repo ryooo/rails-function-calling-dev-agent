@@ -35,8 +35,7 @@ io, _, _ = azure_open_ai.chat_with_function_calling_loop(
         functions: [
                 Llm::Functions::GetFilesList.new,
                 Llm::Functions::ReadFile.new,
-                Llm::Functions::AppendTextToFile.new,
-                Llm::Functions::ModifyTextOfFile.new,
+                Llm::Functions::OverwriteFile.new,
                 Llm::Functions::MakeNewFile.new,
                 Llm::Functions::ExecRspecTest.new,
                 Llm::Functions::GoogleSearch.new,

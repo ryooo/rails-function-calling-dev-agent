@@ -1,6 +1,6 @@
 module Llm
   module Functions
-    class ModifyTextOfFile < Base
+    class OverwriteFile < Base
       def self.definition
         return @definition if @definition.present?
 
@@ -14,14 +14,6 @@ module Llm
                 type: :string,
                 description: I18n.t("functions.#{self.function_name}.parameters.filepath"),
               },
-              start_line_number: {
-                type: :number,
-                description: I18n.t("functions.#{self.function_name}.parameters.start_line_number"),
-              },
-              end_line_number: {
-                type: :number,
-                description: I18n.t("functions.#{self.function_name}.parameters.end_line_number"),
-              },
               new_text: {
                 type: :string,
                 description: I18n.t("functions.#{self.function_name}.parameters.new_text"),
@@ -34,13 +26,9 @@ module Llm
       end
 
       def execute_and_generate_message(args)
-        original_content = File.read(args[:filepath]).split("\n")
-        start_line_number = args[:start_line_number].to_i - 1
-        end_line_number = args[:end_line_number].to_i
-        new_content = original_content[...start_line_number] + [args[:new_text]] + original_content[end_line_number..]
-        File.write(args[:filepath], new_content.join("\n"))
+        File.write(args[:filepath], args[:new_text])
 
-        {after_modified: File.read(args[:filepath])}
+        {result: :success}
       end
     end
   end

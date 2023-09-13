@@ -1,13 +1,6 @@
 ---
 en:
   functions:
-    append_text_to_file:
-      description: I will insert a string into the file.
-      parameters:
-        filepath: Specify the file path.
-        line_number: Specify the line number to insert. The line number starts from
-          1, and you cannot use 0 or negative values.
-        append_text: Specify the string to insert.
     exec_rspec_test:
       description: I will run the rspec test.
       parameters:
@@ -33,16 +26,6 @@ en:
         filepath: Specify the file path. If the directory does not exist, create the
           directory.
         file_contents: Specify the contents of the file.
-    modify_text_of_file:
-      description: Modify the string in the file and return the contents of the file
-        after modification.
-      parameters:
-        filepath: Specify the file path.
-        start_line_number: Specify the line number at the beginning of the range to
-          overwrite. Line numbers start from 1, and you cannot use 0 or negative values.
-        end_line_number: Specifies the final line number of the range to overwrite.
-          Line numbers start from 1, and 0 or negative values cannot be used.
-        new_text: Specify the string after overwriting.
     open_url:
       description: Retrieve the contents of HTML.
       parameters:
@@ -57,3 +40,8 @@ en:
         filepath: Specify the file path.
     record_lgtm:
       description: I will record the task as LGTM (Looks Good To Me).
+    overwrite_file:
+      description: I will rewrite the contents of the file.
+      parameters:
+        filepath: Specify the file path.
+        new_text: Specifies all the text in the file after overwriting.

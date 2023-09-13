@@ -1,12 +1,5 @@
 ja:
   functions:
-    append_text_to_file:
-      description: ファイルに文字列を挿入します。
-      parameters:
-        filepath: ファイルパスを指定します。
-        line_number: 挿入する行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。
-        append_text: 挿入する文字列を指定します。
-
     exec_rspec_test:
       description: rspecのテストを実行します。
       parameters:
@@ -35,13 +28,11 @@ ja:
         filepath: ファイルパスを指定します。ディレクトリが存在しない場合は、ディレクトリを作成します。
         file_contents: ファイルの内容を指定します。
 
-    modify_text_of_file:
-      description: ファイルの文字列を修正して、修正後のファイル内容を返します。
+    overwrite_file:
+      description: ファイルの内容を書き換えます。
       parameters:
         filepath: ファイルパスを指定します。
-        start_line_number: 上書きする範囲の先頭の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。
-        end_line_number: 上書きする範囲の最終の行番号を指定します。行番号は1から始まり、0やマイナスの値は使えません。
-        new_text: 上書き後の文字列を指定します。
+        new_text: 上書き後のファイル内の全テキストを指定します。
 
     open_url:
       description: HTMLの内容を取得します。

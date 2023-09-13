@@ -21,8 +21,7 @@ module Llm
           functions: [
             Llm::Functions::GetFilesList.new,
             Llm::Functions::ReadFile.new,
-            Llm::Functions::AppendTextToFile.new,
-            Llm::Functions::ModifyTextOfFile.new,
+            Llm::Functions::OverwriteFile.new,
             Llm::Functions::MakeNewFile.new,
 
             Llm::Functions::ExecRspecTest.new,
