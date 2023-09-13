@@ -34,7 +34,7 @@ jobs:
         GOOGLE_SA_PRIVATE_KEY: ${{secrets.GOOGLE_SA_PRIVATE_KEY}}
         GOOGLE_SA_CLIENT_EMAIL: ${{secrets.GOOGLE_SA_CLIENT_EMAIL}}
         ISSUE_TITLE: ${{ github.event.issue.title }}
-        ISSUE_DESCRIPTION: ${{ github.event.issue.description }}
+        ISSUE_DESCRIPTION: ${{ github.event.issue.body }}
         ISSUE_NUMBER: ${{ github.event.issue.number }}
         MAKE_PR: true
       run: |
