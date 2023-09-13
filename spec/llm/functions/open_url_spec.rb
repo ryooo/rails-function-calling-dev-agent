@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Llm::Functions::OpenUrl do
   describe '#execute_and_generate_message' do
     context 'when the url is valid' do
-      let(:url) { 'https://www.google.co.jp/' }
+      let(:url) { 'https://example.com' }
       let(:what_i_want_to_know) { 'title' }
 
       it 'returns the correct result' do
