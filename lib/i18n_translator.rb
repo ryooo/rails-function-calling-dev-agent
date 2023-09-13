@@ -1,4 +1,4 @@
-class Translator
+class I18nTranslator
   def self.update_dictionary!
     ja_file_paths = Dir.glob(Rails.root.join("config/locales/**/ja.yml"))
     ja_file_paths.each do |ja_file_path|
