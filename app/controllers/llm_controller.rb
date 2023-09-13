@@ -1,4 +1,4 @@
-class LlmController < ApplicationController
+class LlmController < ActionController::Base
   def new
   end
 
