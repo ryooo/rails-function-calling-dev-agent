@@ -62,6 +62,9 @@ module Llm
         exec_sh("git push --set-upstream origin #{generate_pr_params_function.branch_name}")
         exec_sh("gh pr create --base main --head #{generate_pr_params_function.branch_name} " + \
           "--title '#{generate_pr_params_function.title}#{issue_number}' --body '#{generate_pr_params_function.description}#{issue_url}'")
+        if ENV['ISSUE_NUMBER'].present?
+          exec_sh("gh issue develop --list #{ENV['ISSUE_NUMBER']}")
+        end
       end
     end
   end
