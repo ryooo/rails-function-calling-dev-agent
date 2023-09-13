@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Agents
     class Programmer < Base
       def work(reviewer_comment: nil)
@@ -15,21 +15,20 @@ module AzureOpenAi
           message_container.add_system_message(I18n.t('agents.programmer.diff', diff:))
         end
 
-        azure_open_ai = AzureOpenAi::Client.new
+        azure_open_ai = Llm::Client::AzureOpenAi.new
         io, _, _ = azure_open_ai.chat_with_function_calling_loop(
           messages: message_container,
           functions: [
-            AzureOpenAi::Functions::GetFilesList.new,
-            AzureOpenAi::Functions::ReadFile.new,
-            AzureOpenAi::Functions::AppendTextToFile.new,
-            AzureOpenAi::Functions::ModifyTextOfFile.new,
-            AzureOpenAi::Functions::MakeNewFile.new,
+            Llm::Functions::GetFilesList.new,
+            Llm::Functions::ReadFile.new,
+            Llm::Functions::AppendTextToFile.new,
+            Llm::Functions::ModifyTextOfFile.new,
+            Llm::Functions::MakeNewFile.new,
 
-            AzureOpenAi::Functions::ExecRspecTest.new,
-            AzureOpenAi::Functions::ExecShellCommand.new,
+            Llm::Functions::ExecRspecTest.new,
 
-            AzureOpenAi::Functions::GoogleSearch.new,
-            AzureOpenAi::Functions::OpenUrl.new,
+            Llm::Functions::GoogleSearch.new,
+            Llm::Functions::OpenUrl.new,
           ],
           color: @color,
           actor_name: self.actor_name,
@@ -41,8 +40,8 @@ module AzureOpenAi
       end
 
       def make_pr!
-        generate_pr_params_function = AzureOpenAi::Functions::GeneratePullRequestParams.new
-        azure_open_ai = AzureOpenAi::Client.new
+        generate_pr_params_function = Llm::Functions::GeneratePullRequestParams.new
+        azure_open_ai = Llm::Client::AzureOpenAi.new
         io, _, _ = azure_open_ai.chat_with_function_calling_loop(
           messages: [
             {

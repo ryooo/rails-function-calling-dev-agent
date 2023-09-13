@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Agents
     class Base
       def initialize(leader_comment, color)

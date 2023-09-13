@@ -25,7 +25,7 @@ class Translator
   end
 
   def self.translator
-    @translator ||= AzureOpenAi::Client.new
+    @translator ||= Llm::Client::AzureOpenAi.new
   end
 
   def self.translate(str)

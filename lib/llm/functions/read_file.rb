@@ -1,6 +1,6 @@
-module AzureOpenAi
+module Llm
   module Functions
-    class ExecRspecTest < Base
+    class ReadFile < Base
       def self.definition
         return @definition if @definition.present?
 
@@ -10,22 +10,29 @@ module AzureOpenAi
           parameters: {
             type: :object,
             properties: {
-              file_or_dir_path: {
+              filepath: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.file_or_dir_path"),
+                description: I18n.t("functions.#{self.function_name}.parameters.filepath"),
               },
             },
-            required: [:file_or_dir_path],
+            required: [:filepath],
           },
         }
         @definition
       end
 
       def execute_and_generate_message(args)
-        script = "bundle exec rspec '#{args['file_or_dir_path']}'"
-        stdout, stderr, status = Open3.capture3(script)
-
-        {stdout:, stderr:, exit_status: status.exitstatus}
+        if File.exist?(args[:filepath])
+          {
+            filepath: args[:filepath],
+            file_contents: File.read(args[:filepath]),
+          }
+        else
+          {
+            filepath: args[:filepath],
+            error: "File not found.",
+          }
+        end
       end
     end
   end

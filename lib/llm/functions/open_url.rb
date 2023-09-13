@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class OpenUrl < Base
       def self.definition
@@ -40,7 +40,7 @@ module AzureOpenAi
           chunks = splitter.chunks(page_contents)
 
           summaries = []
-          azure_open_ai = AzureOpenAi::Client.new
+          azure_open_ai = Llm::Client::AzureOpenAi.new
           chunks.each do |chunk|
             ret = azure_open_ai.chat(parameters: {
               messages: [

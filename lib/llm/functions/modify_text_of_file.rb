@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class ModifyTextOfFile < Base
       def self.definition

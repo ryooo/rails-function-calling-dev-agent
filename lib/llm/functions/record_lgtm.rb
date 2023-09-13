@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class RecordLgtm < Base
       def initialize

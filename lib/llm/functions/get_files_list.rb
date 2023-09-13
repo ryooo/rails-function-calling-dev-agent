@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class GetFilesList < Base
       def self.definition

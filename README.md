@@ -8,8 +8,8 @@ Within the command, two llm agents(the Programmer and the Reviewer), use Functio
 
 ```ruby
 prompt = "AzureOpenAi::Functions::ReadFileのrspecを追加してください。"
-programmer = AzureOpenAi::Agents::Programmer.new(prompt, :cyan)
-reviewer = AzureOpenAi::Agents::Reviewer.new(prompt, :green)
+programmer = Llm::Agents::Programmer.new(prompt, :cyan)
+reviewer = Llm::Agents::Reviewer.new(prompt, :green)
 
 reviewer_comment = nil
 i = 0
@@ -29,22 +29,21 @@ end
 
 ```ruby
 prompt = "AzureOpenAi::Functions::ReadFileのrspecを追加してください。"
-azure_open_ai = AzureOpenAi::Client.new
+azure_open_ai = Llm::Client::AzureOpenAi.new
 io, _, _ = azure_open_ai.chat_with_function_calling_loop(
-  messages: [{ role: :user, content: prompt }],
-  functions: [
-    AzureOpenAi::Functions::GetFilesList.new,
-    AzureOpenAi::Functions::ReadFile.new,
-    AzureOpenAi::Functions::AppendTextToFile.new,
-    AzureOpenAi::Functions::ModifyTextOfFile.new,
-    AzureOpenAi::Functions::MakeNewFile.new,
-    AzureOpenAi::Functions::ExecRspecTest.new,
-    AzureOpenAi::Functions::ExecShellCommand.new,
-    AzureOpenAi::Functions::GoogleSearch.new,
-    AzureOpenAi::Functions::OpenUrl.new(prompt),
-  ],
-  color: :cyan,
-  actor_name: "Programmer",
+        messages: [{ role: :user, content: prompt }],
+        functions: [
+                Llm::Functions::GetFilesList.new,
+                Llm::Functions::ReadFile.new,
+                Llm::Functions::AppendTextToFile.new,
+                Llm::Functions::ModifyTextOfFile.new,
+                Llm::Functions::MakeNewFile.new,
+                Llm::Functions::ExecRspecTest.new,
+                Llm::Functions::GoogleSearch.new,
+                Llm::Functions::OpenUrl.new(prompt),
+        ],
+        color: :cyan,
+        actor_name: "Programmer",
 )
 ```
 

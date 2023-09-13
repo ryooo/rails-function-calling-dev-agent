@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class GoogleSearch < Base
       def self.search_client

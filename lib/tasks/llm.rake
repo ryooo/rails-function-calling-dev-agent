@@ -7,8 +7,8 @@ namespace :llm do
     end
     puts("Engineer leader: #{prompt}".light_red)
 
-    programmer = AzureOpenAi::Agents::Programmer.new(prompt, :cyan)
-    reviewer = AzureOpenAi::Agents::Reviewer.new(prompt, :green)
+    programmer = Llm::Agents::Programmer.new(prompt, :cyan)
+    reviewer = Llm::Agents::Reviewer.new(prompt, :green)
     reviewer_comment = nil
     i = 0
     while (i += 1) < 10

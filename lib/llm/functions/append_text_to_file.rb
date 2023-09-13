@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class AppendTextToFile < Base
       def self.definition

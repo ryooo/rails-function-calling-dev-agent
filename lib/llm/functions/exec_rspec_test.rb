@@ -1,28 +1,29 @@
-module AzureOpenAi
+module Llm
   module Functions
-    class ExecShellCommand < Base
+    class ExecRspecTest < Base
       def self.definition
         return @definition if @definition.present?
 
         @definition = {
           name: self.function_name,
-          description: "Execute shell command for test it.",
+          description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
-              script: {
+              file_or_dir_path: {
                 type: :string,
-                description: "Program to run with shell.",
+                description: I18n.t("functions.#{self.function_name}.parameters.file_or_dir_path"),
               },
             },
-            required: [:script],
+            required: [:file_or_dir_path],
           },
         }
         @definition
       end
 
       def execute_and_generate_message(args)
-        stdout, stderr, status = Open3.capture3(args[:script])
+        script = "bundle exec rspec '#{args['file_or_dir_path']}'"
+        stdout, stderr, status = Open3.capture3(script)
 
         {stdout:, stderr:, exit_status: status.exitstatus}
       end

@@ -1,6 +1,6 @@
-module AzureOpenAi
+module Llm
   module Functions
-    class ReadFile < Base
+    class MakeNewFile < Base
       def self.definition
         return @definition if @definition.present?
 
@@ -14,25 +14,25 @@ module AzureOpenAi
                 type: :string,
                 description: I18n.t("functions.#{self.function_name}.parameters.filepath"),
               },
+              file_contents: {
+                type: :string,
+                description: I18n.t("functions.#{self.function_name}.parameters.file_contents"),
+              },
             },
-            required: [:filepath],
+            required: [:filepath, :file_contents],
           },
         }
         @definition
       end
 
       def execute_and_generate_message(args)
-        if File.exist?(args[:filepath])
-          {
-            filepath: args[:filepath],
-            file_contents: File.read(args[:filepath]),
-          }
-        else
-          {
-            filepath: args[:filepath],
-            error: "File not found.",
-          }
+        dirname = File.dirname(args[:filepath])
+        unless File.directory?(dirname)
+          FileUtils.mkdir_p(dirname)
         end
+        File.write(args[:filepath], args[:file_contents])
+
+        {result: "success"}
       end
     end
   end

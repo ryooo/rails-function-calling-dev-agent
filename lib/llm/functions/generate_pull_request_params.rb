@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class GeneratePullRequestParams < Base
       attr_reader :title, :description, :branch_name

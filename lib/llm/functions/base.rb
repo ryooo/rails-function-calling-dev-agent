@@ -1,4 +1,4 @@
-module AzureOpenAi
+module Llm
   module Functions
     class Base
       def self.function_name

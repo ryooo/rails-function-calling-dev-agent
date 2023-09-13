@@ -1,10 +1,10 @@
-module AzureOpenAi
+module Llm
   module Agents
     class Reviewer < Base
       def initialize(leader_comment, color)
         super(leader_comment, color)
 
-        @record_lgtm_function = AzureOpenAi::Functions::RecordLgtm.new
+        @record_lgtm_function = Llm::Functions::RecordLgtm.new
       end
 
       def lgtm?
@@ -24,19 +24,18 @@ module AzureOpenAi
         diff = self.get_current_diff
         message_container.add_system_message(I18n.t('agents.reviewer.diff', diff:))
 
-        azure_open_ai = AzureOpenAi::Client.new
+        azure_open_ai = Llm::Client::AzureOpenAi.new
         io, _, _ = azure_open_ai.chat_with_function_calling_loop(
           messages: message_container,
           functions: [
             @record_lgtm_function,
-            AzureOpenAi::Functions::GetFilesList.new,
-            AzureOpenAi::Functions::ReadFile.new,
+            Llm::Functions::GetFilesList.new,
+            Llm::Functions::ReadFile.new,
 
-            AzureOpenAi::Functions::ExecRspecTest.new,
-            AzureOpenAi::Functions::ExecShellCommand.new,
+            Llm::Functions::ExecRspecTest.new,
 
-            AzureOpenAi::Functions::GoogleSearch.new,
-            AzureOpenAi::Functions::OpenUrl.new,
+            Llm::Functions::GoogleSearch.new,
+            Llm::Functions::OpenUrl.new,
           ],
           color: @color,
           actor_name: self.actor_name,
